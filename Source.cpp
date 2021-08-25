@@ -1,0 +1,39 @@
+#include<iostream>
+#include<thread>
+#include<Windows.h>
+using namespace std;
+using namespace std::chrono_literals;
+bool finish = false;
+
+void hello()
+{
+	while (!finish)
+	{
+		cout << "Hello ";
+		
+		Sleep(1000);
+	}
+}
+void world()
+{
+	while (!finish)
+	{
+		cout << "world " << endl;
+	
+		Sleep(1000);
+	}
+}
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	std::thread thread_hello(hello);
+	std::thread thread_world(world);
+
+	std::cin.get();  //enter
+	finish = true;
+
+	thread_world.join();
+	thread_hello.join();
+
+}
